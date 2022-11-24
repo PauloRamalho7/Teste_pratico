@@ -16,7 +16,8 @@ type
   TDM = class(TDataModule)
     FDConn: TFDConnection;
     FDPhysSQLiteDriverLink: TFDPhysSQLiteDriverLink;
-    qry_geral: TFDQuery;
+    qry_contato: TFDQuery;
+    qry_fone: TFDQuery;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }

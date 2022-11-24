@@ -1,0 +1,198 @@
+object frmIncluir: TfrmIncluir
+  Left = 0
+  Top = 0
+  Caption = 'Incluir Contato'
+  ClientHeight = 579
+  ClientWidth = 363
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object Rectangle1: TRectangle
+    Align = Top
+    Fill.Color = xFF4D7EC3
+    Size.Width = 363.000000000000000000
+    Size.Height = 48.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+    object lbl_titulo: TLabel
+      Align = Contents
+      StyledSettings = [Family]
+      Size.Width = 363.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 14.000000000000000000
+      TextSettings.FontColor = claWhite
+      TextSettings.HorzAlign = Center
+      Text = 'Incluir Contato'
+      TabOrder = 0
+    end
+    object img_salvar: TImage
+      MultiResBitmap.Height = 32
+      MultiResBitmap.Width = 32
+      MultiResBitmap = <
+        item
+          Width = 32
+          Height = 32
+          PNG = {
+            89504E470D0A1A0A0000000D4948445200000020000000200806000000737A7A
+            F4000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+            013D494441545847ED945D4B02411486B7FBC8D4343553A2FFDF5574D17D1099
+            696AA59911FD8CFDEC39F06E08116139D3CD3C30CCC73B9EE7EC821B05028180
+            0F8AA2A8645976C938D3913F90EFA7697AC35C244932D7B11F241F48FE9AE779
+            5F917B705619B7A59CA9A7C83D3C698D271F4ABE627FACC83D92DF49FEC2BEAB
+            C83DC8EAC847922FFF433E96FC99FD91A2CDE0BF7AC138A7CEAE8E7E84BB07C8
+            EF255F20EF28DA0C7EBF13C7F19B15A2E01585F6147D0B771ADC9D483EFFB5BC
+            8402A734F1AE26AE992A8ABE20F9744DDE56F4372874B2F626EC435255F40977
+            9A6433C99F985A8AB603823E85ED03624D0CD9D714597648F620F9A3ED156D17
+            EAF710ACD4C408519D65CBA476664D70D6D4753720E8225AAA89096B7BDDB69E
+            39979720EA205E98D8403EE5ACA1D80F08DB88C78C81777920107047147D0014
+            CA907FC5891FDA0000000049454E44AE426082}
+          FileName = 
+            'D:\99Coders\Mobile 360\Curso 2.0\03 - App mobile\05 - Tela princ' +
+            'ipal - Tabs\FontesDelphi\Images\icon-salvar.png'
+        end>
+      Align = Right
+      Margins.Right = 5.000000000000000000
+      Position.X = 308.000000000000000000
+      Size.Width = 50.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      WrapMode = Center
+      OnClick = img_salvarClick
+    end
+    object img_voltar: TImage
+      MultiResBitmap.Height = 32
+      MultiResBitmap.Width = 32
+      MultiResBitmap = <
+        item
+          Width = 32
+          Height = 32
+          PNG = {
+            89504E470D0A1A0A0000000D4948445200000020000000200806000000737A7A
+            F4000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+            0098494441545847ED96B10980301045831B084EE300D64EE0244E60E33ACE64
+            91DA2639FFC11DA4B0127211B907E143AEF8FC9F14171CE75710519F735E7116
+            B9B203E6434A698712F4906B1B38399BC7182F70A2815146F52993B339649651
+            7D1E924F32AA8F27F7E4A6C919986F359277A2DFA7F91330306DF709156F42F1
+            2694AF3661B79028651350DB954CE12690BECD52EA38EF08E106E2BC575BBFD6
+            315E0000000049454E44AE426082}
+          FileName = 
+            'D:\99Coders\Mobile 360\Curso 2.0\03 - App mobile\05 - Tela princ' +
+            'ipal - Tabs\FontesDelphi\Images\icon-voltar.png'
+        end>
+      Align = Left
+      Margins.Left = 5.000000000000000000
+      Position.X = 5.000000000000000000
+      Size.Width = 50.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      WrapMode = Center
+      OnClick = img_voltarClick
+    end
+  end
+  object Label1: TLabel
+    StyledSettings = [Family, Style, FontColor]
+    Position.X = 50.000000000000000000
+    Position.Y = 80.000000000000000000
+    Size.Width = 76.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Size = 16.000000000000000000
+    Text = 'Nome'
+    TabOrder = 0
+  end
+  object Label2: TLabel
+    StyledSettings = [Family, Style, FontColor]
+    Position.X = 50.000000000000000000
+    Position.Y = 140.000000000000000000
+    Size.Width = 76.000000000000000000
+    Size.Height = 21.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Size = 16.000000000000000000
+    Text = 'Idade'
+    TabOrder = 10
+  end
+  object Label3: TLabel
+    StyledSettings = [Family, Style, FontColor]
+    Position.X = 50.000000000000000000
+    Position.Y = 204.000000000000000000
+    Size.Width = 76.000000000000000000
+    Size.Height = 21.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Size = 16.000000000000000000
+    Text = 'Celular'
+    TabOrder = 9
+  end
+  object Label4: TLabel
+    StyledSettings = [Family, Style, FontColor]
+    Position.X = 50.000000000000000000
+    Position.Y = 266.000000000000000000
+    Size.Width = 76.000000000000000000
+    Size.Height = 21.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Size = 16.000000000000000000
+    Text = 'Telefone 1'
+    TabOrder = 8
+  end
+  object Label5: TLabel
+    StyledSettings = [Family, Style, FontColor]
+    Position.X = 50.000000000000000000
+    Position.Y = 338.000000000000000000
+    Size.Width = 76.000000000000000000
+    Size.Height = 21.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Size = 16.000000000000000000
+    Text = 'Telefone 2'
+    TabOrder = 7
+  end
+  object edtNome: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 1
+    Position.X = 50.000000000000000000
+    Position.Y = 104.000000000000000000
+    Size.Width = 257.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object edtIdade: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 2
+    Position.X = 50.000000000000000000
+    Position.Y = 168.000000000000000000
+    Size.Width = 257.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object edtCelular: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 3
+    Position.X = 50.000000000000000000
+    Position.Y = 232.000000000000000000
+    Size.Width = 257.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    OnTyping = edtCelularTyping
+  end
+  object edtFone1: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 4
+    Position.X = 50.000000000000000000
+    Position.Y = 296.000000000000000000
+    Size.Width = 257.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    OnTyping = edtFone1Typing
+  end
+  object edtFone2: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 5
+    Position.X = 50.000000000000000000
+    Position.Y = 368.000000000000000000
+    Size.Width = 257.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    OnTyping = edtFone2Typing
+  end
+end

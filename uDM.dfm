@@ -17,9 +17,14 @@ object DM: TDM
     Left = 56
     Top = 88
   end
-  object qry_geral: TFDQuery
+  object qry_contato: TFDQuery
     Connection = FDConn
     Left = 128
+    Top = 32
+  end
+  object qry_fone: TFDQuery
+    Connection = FDConn
+    Left = 192
     Top = 32
   end
 end

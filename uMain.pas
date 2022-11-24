@@ -8,15 +8,19 @@ uses
   FMX.Controls.Presentation, FMX.Objects, FMX.Layouts;
 
 type
-  TForm2 = class(TForm)
+  TfrmPrincipal = class(TForm)
     lyt_top: TLayout;
     Rectangle1: TRectangle;
     Label1: TLabel;
     lyt_principal: TLayout;
-    RoundRect1: TRoundRect;
+    rctIncluir: TRoundRect;
     Image1: TImage;
-    RoundRect2: TRoundRect;
+    rctPesquisar: TRoundRect;
     Image2: TImage;
+    lblIncluir: TLabel;
+    lblPesq: TLabel;
+    procedure rctIncluirClick(Sender: TObject);
+    procedure rctPesquisarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -24,12 +28,33 @@ type
   end;
 
 var
-  Form2: TForm2;
+  frmPrincipal: TfrmPrincipal;
 
 implementation
 
 {$R *.fmx}
 
-uses uDM;
+uses uDM, uIncluir, uDados;
+
+procedure TfrmPrincipal.rctIncluirClick(Sender: TObject);
+begin
+        if NOT Assigned(frmDados) then
+            Application.CreateForm(TfrmDados, frmDados);
+        frmDados.modo                := 'I';
+        frmDados.rctBotton.Visible   := false;
+        frmDados.img_excluir.Visible := false;
+        frmDados.Show;
+end;
+
+procedure TfrmPrincipal.rctPesquisarClick(Sender: TObject);
+begin
+        if NOT Assigned(frmDados) then
+            Application.CreateForm(TfrmDados, frmDados);
+        frmDados.modo                := 'P';
+        frmDados.rctBotton.Visible   := true;
+        frmDados.img_excluir.Visible := true;
+        frmDados.Show;
+
+end;
 
 end.
