@@ -41,6 +41,7 @@ type
     procedure img_salvarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure imgPesquisaClick(Sender: TObject);
+    procedure img_excluirClick(Sender: TObject);
   private
     { Private declarations }
     IDAtual : String;
@@ -101,50 +102,103 @@ begin
 end;
 
 procedure TfrmDados.imgPesquisaClick(Sender: TObject);
+var
+  PesqStr : String;
 begin
-  IDAtual := '';
+  IDAtual := '';  PesqStr := '';
+  edtNome.Text       := '';
+  edtIdade.Text      := '';
+  edtCelular.Text    := '';
+  edtCelular.Tag     := 0;
+  edtFone1.Text      := '';
+  edtFone1.Tag       := 0;
+  edtFone2.Text      := '';
+  edtFone2.Tag       := 0;
+
+  if (edtPesqNome.Text = '') and (edtPesqFone.Text = '') then
+  begin
+    showmessage('Não há o que pesquisar!');
+    exit;
+  end;
+
   if edtPesqNome.Text <> '' then
   begin
-        DM.qry_contato.Active := false;
-        DM.qry_contato.SQL.Clear;
-        DM.qry_contato.SQL.Add('SELECT * FROM CONTATO WHERE  NOME LIKE :NOME  ');
-        DM.qry_contato.ParamByName('NOME').Value := '%'+edtPesqNome.Text+'%';
-        DM.qry_contato.Active := true;
-        if DM.qry_contato.IsEmpty then
-        begin
-          showmessage('Não foi encontrado nenhum registro com esse nome!');
-          exit;
-        end;
-        edtNome.Text  := DM.qry_contato.FieldByName('NOME').AsString;
-        edtIdade.Text := DM.qry_contato.FieldByName('IDADE').AsString;
-        IDAtual       := DM.qry_contato.FieldByName('ID').AsString;
+    DM.qry_contato.Active := false;
+    DM.qry_contato.SQL.Clear;
+    DM.qry_contato.SQL.Add('SELECT * FROM CONTATO WHERE  NOME LIKE :NOME  ');
+    DM.qry_contato.ParamByName('NOME').Value := '%'+edtPesqNome.Text+'%';
+    DM.qry_contato.Active := true;
+    if DM.qry_contato.IsEmpty then
+    begin
+      showmessage('Não foi encontrado nenhum registro com esse nome!');
+      exit;
+    end;
 
-        DM.qry_fone.Active := false;
-        DM.qry_fone.SQL.Clear;
-        DM.qry_fone.SQL.Add('SELECT * FROM TELEFONE WHERE  IDCONTATO = :IDCONTATO');
-        DM.qry_fone.ParamByName('IDCONTATO').Value := IDAtual;
-        DM.qry_fone.Active := true;
-        while not DM.qry_fone.Eof do
-        begin
-          if DM.qry_fone.FieldByName('TIPO').AsString = 'C' then
-          begin
-            edtCelular.Text := DM.qry_fone.FieldByName('NUMERO').AsString;
-            edtCelular.Tag  := DM.qry_fone.FieldByName('ID').AsInteger;
-          end;
-          if DM.qry_fone.FieldByName('TIPO').AsString = '1' then
-          begin
-            edtFone1.Text := DM.qry_fone.FieldByName('NUMERO').AsString;
-            edtFone1.Tag  := DM.qry_fone.FieldByName('ID').AsInteger;
-          end;
-          if DM.qry_fone.FieldByName('TIPO').AsString = '2' then
-          begin
-            edtFone2.Text := DM.qry_fone.FieldByName('NUMERO').AsString;
-            edtFone2.Tag  := DM.qry_fone.FieldByName('ID').AsInteger;
-          end;
-          DM.qry_fone.Next;
-        end;
+    IDAtual       := DM.qry_contato.FieldByName('ID').AsString;
+
+    DM.qry_fone.Active := false;
+    DM.qry_fone.SQL.Clear;
+    DM.qry_fone.SQL.Add('SELECT * FROM TELEFONE WHERE  IDCONTATO = :IDCONTATO');
+    DM.qry_fone.ParamByName('IDCONTATO').Value := IDAtual;
+    DM.qry_fone.Active := true;
+  end else
+  begin
+    PesqStr := edtPesqFone.Text;
+    if length(PesqStr) = 11 then PesqStr := '(' + copy(PesqStr,1,2)+') '+ copy(PesqStr,1,5) + '-' + copy(PesqStr,6,4);
+    if length(PesqStr) = 10 then PesqStr := '(' + copy(PesqStr,1,2)+') '+ copy(PesqStr,1,4) + '-' + copy(PesqStr,5,4);
+    if length(PesqStr) = 9  then PesqStr := copy(PesqStr,1,5) + '-' + copy(PesqStr,6,4);
+    if length(PesqStr) = 8  then PesqStr := copy(PesqStr,1,4) + '-' + copy(PesqStr,5,4);
+
+    DM.qry_fone.Active := false;
+    DM.qry_fone.SQL.Clear;
+    DM.qry_fone.SQL.Add('SELECT * FROM TELEFONE WHERE  NUMERO LIKE :NUMERO');
+    DM.qry_fone.ParamByName('NUMERO').Value := '%'+PesqStr+'%';
+    DM.qry_fone.Active := true;
+
+    if DM.qry_fone.IsEmpty then
+    begin
+      showmessage('Não foi encontrado nenhum registro com esse telefone!');
+      exit;
+    end else
+      IDAtual := DM.qry_fone.FieldByName('IDCONTATO').AsString;
+
+    DM.qry_contato.Active := false;
+    DM.qry_contato.SQL.Clear;
+    DM.qry_contato.SQL.Add('SELECT * FROM CONTATO WHERE  ID LIKE :ID  ');
+    DM.qry_contato.ParamByName('ID').Value := IDAtual;
+    DM.qry_contato.Active := true;
+
+    DM.qry_fone.Active := false;
+    DM.qry_fone.SQL.Clear;
+    DM.qry_fone.SQL.Add('SELECT * FROM TELEFONE WHERE  IDCONTATO = :IDCONTATO');
+    DM.qry_fone.ParamByName('IDCONTATO').Value := IDAtual;
+    DM.qry_fone.Active := true;
 
   end;
+
+  edtNome.Text  := DM.qry_contato.FieldByName('NOME').AsString;
+  edtIdade.Text := DM.qry_contato.FieldByName('IDADE').AsString;
+
+  while not DM.qry_fone.Eof do
+  begin
+    if DM.qry_fone.FieldByName('TIPO').AsString = 'C' then
+    begin
+      edtCelular.Text := DM.qry_fone.FieldByName('NUMERO').AsString;
+      edtCelular.Tag  := DM.qry_fone.FieldByName('ID').AsInteger;
+    end;
+    if DM.qry_fone.FieldByName('TIPO').AsString = '1' then
+    begin
+      edtFone1.Text := DM.qry_fone.FieldByName('NUMERO').AsString;
+      edtFone1.Tag  := DM.qry_fone.FieldByName('ID').AsInteger;
+    end;
+    if DM.qry_fone.FieldByName('TIPO').AsString = '2' then
+    begin
+      edtFone2.Text := DM.qry_fone.FieldByName('NUMERO').AsString;
+      edtFone2.Tag  := DM.qry_fone.FieldByName('ID').AsInteger;
+    end;
+    DM.qry_fone.Next;
+  end;
+
 end;
 
 procedure IncluirFone (idContato,Numero,Tipo:String);
@@ -204,6 +258,56 @@ begin
     DM.qry_fone.ExecSQL;
 end;
 
+
+procedure TfrmDados.img_excluirClick(Sender: TObject);
+var
+  log: TextFile;
+begin
+    if IDAtual = '' then
+    begin
+      showmessage('Não tem contato selecionado!');
+      exit
+    end;
+
+    DM.qry_fone.Active := false;
+    DM.qry_fone.SQL.Clear;
+    dm.qry_fone.SQL.Add('DELETE FROM TELEFONE');
+    dm.qry_fone.SQL.Add('WHERE IDCONTATO = :IDCONTATO');
+
+    DM.qry_fone.ParamByName('IDCONTATO').Value    := IDAtual;
+
+    DM.qry_fone.ExecSQL;
+
+    DM.qry_contato.Active := false;
+    DM.qry_contato.SQL.Clear;
+    dm.qry_contato.SQL.Add('DELETE FROM CONTATO');
+    dm.qry_contato.SQL.Add('WHERE ID = :ID');
+
+    DM.qry_contato.ParamByName('ID').Value    := IDAtual;
+
+    DM.qry_Contato.ExecSQL;
+
+
+    showmessage('Contato deletado!');
+    {$IFDEF MSWINDOWS}
+    AssignFile(log, System.SysUtils.GetCurrentDir + '\logagenda.txt');
+    try
+        if FileExists(System.SysUtils.GetCurrentDir + '\logagenda.txt') then
+          reset(log)
+        else
+          rewrite(log);
+        writeln(log, 'Contato ' + edtNome.Text + ' com ID '+ IDAtual + ' deletado em ' +
+               FormatDateTime('dd/mm/yyyy hh:MM:ss', Now));
+        CloseFile(Log);
+    except on E:Exception do
+        raise Exception.Create('Erro no arquivo de log: ' + E.Message);
+    end;
+
+    {$ENDIF}
+
+    close;
+
+end;
 
 procedure TfrmDados.img_salvarClick(Sender: TObject);
 var
